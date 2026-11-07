@@ -25,10 +25,10 @@ services:
     startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /health
     envVars:
-      # Secret for validating webhook signatures
-      # This default is for demo purposes - change it in your Render Dashboard for production
+      # Secret for validating webhook signatures. Render generates a random
+      # value; the service refuses to start without one.
       - key: WEBHOOK_SECRET
-        value: demo-webhook-secret
+        generateValue: true
 
       # Render API key for triggering workflow tasks
       # Create at: Dashboard > Account Settings > API Keys
@@ -54,10 +54,10 @@ services:
   #   startCommand: npm start
   #   healthCheckPath: /health
   #   envVars:
-  #     # Secret for validating webhook signatures
-  #     # This default is for demo purposes - change it in your Render Dashboard for production
+  #     # Secret for validating webhook signatures. Render generates a random
+  #     # value; the service refuses to start without one.
   #     - key: WEBHOOK_SECRET
-  #       value: demo-webhook-secret
+  #       generateValue: true
   #
   #     # Render API key for triggering workflow tasks
   #     # Create at: Dashboard > Account Settings > API Keys

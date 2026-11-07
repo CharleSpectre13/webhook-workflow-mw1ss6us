@@ -44,6 +44,18 @@ function getEnvNumber(key: string, defaultValue: number): number {
   return isNaN(parsed) ? defaultValue : parsed;
 }
 
+// The value the original demo blueprint shipped with. Anyone can sign with it.
+export const DEMO_WEBHOOK_SECRET = "demo-webhook-secret";
+
+export function requireWebhookSecret(value: string | undefined): string {
+  if (!value || value === DEMO_WEBHOOK_SECRET) {
+    throw new Error(
+      "WEBHOOK_SECRET must be set to a private value (it is unset or the public demo value)",
+    );
+  }
+  return value;
+}
+
 let cachedSettings: Settings | null = null;
 
 export function getSettings(): Settings {
@@ -51,7 +63,7 @@ export function getSettings(): Settings {
 
   cachedSettings = {
     // Webhook security
-    webhookSecret: process.env.WEBHOOK_SECRET || "demo-webhook-secret",
+    webhookSecret: requireWebhookSecret(process.env.WEBHOOK_SECRET),
 
     // Render Workflows
     renderApiKey: process.env.RENDER_API_KEY || "",
