@@ -14,7 +14,7 @@ type Page = "main" | "howItWorks";
 function App() {
   const [currentPage, setCurrentPage] = useState<Page>("main");
   const isLocalhost = window.location.hostname === "localhost";
-  const defaultSecret = isLocalhost ? "test-secret" : "demo-webhook-secret";
+  const defaultSecret = isLocalhost ? "test-secret" : "";
 
   const [webhookUrl, setWebhookUrl] = useState(
     `${window.location.origin}/webhook`,
@@ -168,8 +168,8 @@ function App() {
                   />
                   {!isLocalhost && (
                     <p className="mt-1 text-xs text-zinc-500">
-                      Default secret for demo. Change in Render Dashboard for
-                      production.
+                      Paste this service's WEBHOOK_SECRET from the Render
+                      Dashboard.
                     </p>
                   )}
                 </div>
